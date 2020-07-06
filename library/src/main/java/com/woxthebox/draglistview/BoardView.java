@@ -177,7 +177,7 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
         Resources res = getResources();
         boolean isPortrait = res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
         if (isPortrait) {
-            mColumnWidth = (int) (res.getDisplayMetrics().widthPixels * 0.87);
+            mColumnWidth = (int) (res.getDisplayMetrics().widthPixels);
         } else {
             mColumnWidth = (int) (res.getDisplayMetrics().density * 320);
         }
@@ -192,11 +192,11 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
         mDragColumn.setSnapToTouch(false);
 
         mRootLayout = new FrameLayout(getContext());
-        mRootLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
+        mRootLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         mColumnLayout = new LinearLayout(getContext());
         mColumnLayout.setOrientation(LinearLayout.HORIZONTAL);
-        mColumnLayout.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT));
+        mColumnLayout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         mColumnLayout.setMotionEventSplittingEnabled(false);
 
         mRootLayout.addView(mColumnLayout);
@@ -931,7 +931,7 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
         recyclerView.setVerticalScrollBarEnabled(false);
         recyclerView.setMotionEventSplittingEnabled(false);
         recyclerView.setDragItem(mDragItem);
-        recyclerView.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+        recyclerView.setLayoutParams(new LinearLayout.LayoutParams(mColumnWidth, LinearLayout.LayoutParams.MATCH_PARENT));
 
         RecyclerView.LayoutManager layoutManager = columnProperties.getLayoutManager();
         recyclerView.setLayoutManager(layoutManager != null ? layoutManager : new LinearLayoutManager(getContext()));
@@ -1024,7 +1024,7 @@ public class BoardView extends HorizontalScrollView implements AutoScroller.Auto
         LinearLayout layout = new LinearLayout(getContext());
         layout.setBackgroundColor(columnProperties.getColumnBackgroundColor());
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setLayoutParams(new LayoutParams(mColumnWidth, LayoutParams.MATCH_PARENT));
+        layout.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
         View columnHeader = columnProperties.getHeader();
         if (columnHeader == null) {
